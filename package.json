@@ -1,0 +1,17 @@
+{
+  "name": "govuk-social-image",
+  "version": "1.0.0",
+  "description": "Generate social sharing image for any page on GOV.UK",
+  "engines": {
+    "node": "6.11.x"
+  },
+  "main": "social-image.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joe Lanman",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.83.0"
+  }
+}

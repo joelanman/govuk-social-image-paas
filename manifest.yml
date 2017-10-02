@@ -1,0 +1,5 @@
+---
+applications:
+- name: govuk-social-image
+  memory: 256M
+  buildpack: nodejs_buildpack
