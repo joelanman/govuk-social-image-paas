@@ -16,7 +16,3 @@ The script then sets a font size depending on how long the title is, and runs `c
 PNG image.
 
 The script then returns the PNG.
-
-## Test locally
-
-You need Node.js and ImageMagick installed.
