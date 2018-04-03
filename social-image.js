@@ -7,30 +7,29 @@ const url = require('url')
 const port = process.env.PORT || 3000
 
 const server = http.createServer((req, res) => {
-  const queryData = url.parse(req.url, true).query
 
+  // get path from the query, eg ?path=/register-to-vote
+  const queryData = url.parse(req.url, true).query
   const basepath = queryData.path
 
-  const apiURL = 'https://www.gov.uk/api/content/' + basepath
-  console.log(apiURL)
+  // get the title from page HTML
+  const htmlURL = 'https://www.gov.uk/' + basepath
 
-  request(apiURL, function (error, apiResponse, apiBody) {
+  request(htmlURL, function (error, htmlResponse, htmlBody) {
     if (error) {
       console.error(error)
       renderGeneric(res)
       return
     }
 
-    // console.log(`STATUS: ${apiResponse.statusCode}`)
-    // console.log(`HEADERS: ${JSON.stringify(apiResponse.headers, null, '  ')}`)
-
     var title = 'GOV.UK'
     try {
-      const contentItem = JSON.parse(apiBody)
-      // console.log(`contentItem: ${JSON.stringify(contentItem, null, '  ')}`)
-      title = contentItem.title
-    } catch (e) {
-      console.log('Error parsing JSON')
+      const titleRegex = /<title>(.*)<\/title>/i
+      const matches = htmlBody.match(titleRegex)
+      title = matches[1]
+    }
+     catch (error) {
+      console.error('Error getting title: ' + error)
       renderGeneric(res)
       return
     }
@@ -45,7 +44,7 @@ server.listen(port, () => {
 
 function render (title, res) {
   if (typeof title !== 'string') {
-    console.log('title is not a string')
+    console.error('title is not a string')
     renderGeneric(res)
     return
   }
