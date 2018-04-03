@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Generate social sharing image for any page on GOV.UK",
   "engines": {
-    "node": "6.11.x"
+    "node": "6.x"
   },
   "main": "social-image.js",
   "scripts": {
